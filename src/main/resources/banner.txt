@@ -1,0 +1,8 @@
+
+  ${AnsiColor.YELLOW}___    _______         _____                ${AnsiColor.GREEN}________ _________${AnsiColor.YELLOW}___  ___  ___
+  ${AnsiColor.YELLOW}__ |  / /___(_)___________(_)______ _______ ${AnsiColor.GREEN}___  __ \__  ____/${AnsiColor.YELLOW}__ \ __ \ __ \
+  ${AnsiColor.YELLOW}__ | / / __  / __  ___/__  / _  __ \__  __ \${AnsiColor.GREEN}__  / / /_  / __  ${AnsiColor.YELLOW}___ \___ \___ \
+  ${AnsiColor.YELLOW}__ |/ /  _  /  _(__  ) _  /  / /_/ /_  / / /${AnsiColor.GREEN}_  /_/ / / /_/ /  ${AnsiColor.YELLOW}__  /__  /__  /
+  ${AnsiColor.YELLOW}_____/   /_/   /____/  /_/   \____/ /_/ /_/ ${AnsiColor.GREEN}/_____/  \____/   ${AnsiColor.YELLOW}_/_/ _/_/ _/_/
+
+${AnsiColor.BRIGHT_BLUE}:: Andrian Ramadhan Febriana © All rights reserved ::${AnsiColor.DEFAULT}

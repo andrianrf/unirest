@@ -1,0 +1,55 @@
+image: maven:3.8.3-jdk-11
+
+pipelines:
+  branches:
+    prod-bsb:
+      - step:
+          name: build application jar
+          caches:
+            - maven
+          script:
+            - mvn package -Dmaven.test.skip=true
+          artifacts:
+            - target/*.jar
+      - step:
+          name: Docker build
+          services:
+            - docker
+          caches:
+            - docker
+          script:
+            - docker build --memory=3072M -t visiondgmlpt/va-tools-be:prod-bsb .
+            - docker login --username $DOCKER_HUB_USERNAME --password $DOCKER_HUB_PASSWORD
+            - docker push visiondgmlpt/va-tools-be:prod-bsb
+    dev-bsb:
+      - step:
+          name: build application jar
+          caches:
+            - maven
+          script:
+            - mvn package -Dmaven.test.skip=true
+          artifacts:
+            - target/*.jar
+      - step:
+          name: Docker build
+          services:
+            - docker
+          caches:
+            - docker
+          script:
+            - docker build --memory=3072M -t visiondgmlpt/va-tools-be:dev-bsb .
+            - docker login --username $DOCKER_HUB_USERNAME --password $DOCKER_HUB_PASSWORD
+            - docker push visiondgmlpt/va-tools-be:dev-bsb
+    dev-cloud:
+      - step:
+          name: build
+          script:
+            - pipe: atlassian/ssh-run:0.3.0
+              variables:
+                SSH_USER: 'root'
+                SERVER: 'mysql.visiondg.xyz'
+                COMMAND: 'cd /root/va-tools-be && ./run.sh'
+      - step:
+          name: run
+          script:
+            - ssh root@mysql.visiondg.xyz "cd /root/va-tools-be;. .env;nohup java -Xmx256m -Djava.net.preferIPv4Stack=true -jar target/backoffice-be-0.0.1-SNAPSHOT.jar >> va-tools-be.log 2>&1 &"
